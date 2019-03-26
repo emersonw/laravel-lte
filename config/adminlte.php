@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'title' => 'NOXAN',
+    'title' => 'Noxan - CMS',
 
-    'title_prefix' => '',
+    'title_prefix' => 'Noxan - ',
 
     'title_postfix' => '',
 
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
 
     'logout_url' => 'logout',
 
@@ -124,7 +124,7 @@ return [
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/profile',
             'icon' => 'user',
         ],
         [

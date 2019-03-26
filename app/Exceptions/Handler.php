@@ -46,6 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+
+        return redirect('/login')->with('error', 'Faça o login novamente.');
+
+   }
         return parent::render($request, $exception);
     }
 }
