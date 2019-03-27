@@ -5,50 +5,66 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileFormRequest;
+use App\Http\Requests\UpdatePasswordFormRequest;
+use Illuminate\Support\Facades\Hash;
 use Auth;
+use App\Plugins\Slim;
+use File;
+use Brian2694\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
 	public function index()
 	{
+
 		return view('admin.profile.index');
 	}
 
-	public function update(UpdateProfileFormRequest $request)
+	public function updateProfile(UpdateProfileFormRequest $request)
 	{
-
 		$user = Auth::user();
-		$data = $request->all();
+		$request->offsetUnset('password');
+		
+		if ($request->image) {
+			$image = head(Slim::getImages('image'));
 
-		if($data['password'] != null) {
-			$data['password'] = bcrypt($data['password']);
+			if ( isset($image['output']['data']) ) {
+				$name = $user->id.'.png';
+            // Base64 of the image
+				$data = $image['output']['data'];
+            // Server path
+				$path = base_path() . '/public/images/users';
+            // Save the file to the server
+				$file = Slim::saveFile($data, $name, $path);
+            // Get the absolute web path to the image
+				$image = $file['name'];
+				$request->merge(['image' => $image]);
+			}
+
 		} else {
-			unset($data['password']);
+			$request->offsetUnset('image');
 		}
 
-		$data['image'] = $user->image;
+		$update = Auth::user()->update($request->all());
 
-		if($request->hasFile('image') && $request->file('image')->isValid()) {
-			if ($user->image) {
-				$name = pathinfo($user->image)['filename'];
-			} else {
-				$name = md5($user->id);
-			}
+		if ($update) {
+			return redirect()->route('profile')->with('success', 'Atualizado com sucesso.');
+		} else {
+			return redirect()->back()->with('error', 'Erro ao atualizar.');
+		}
+	}
 
-			$extension = $request->image->extension();
-			$name_file = "{$name}.{$extension}";
+	public function updatePassword(UpdatePasswordFormRequest $request)
+	{
+		$user = Auth::user();
 
-			$data['image'] = $name_file;
-
-			$upload = $request->image->storeAs('users', $name_file);
-
-			if (!$upload) {
-				return redirect()->back()->with('error', 'Erro ao fazer o upload.');
-			}
-
+		if(Hash::check($request->password, $user->password)) {           
+			$request->merge(['password' => Hash::make($request->new_password)]);
+		} else {           
+			return redirect()->back()->with('error', 'Senha incorreta.');   
 		}
 
-		$update = Auth::user()->update($data);
+		$update = Auth::user()->update($request->all());
 
 		if ($update) {
 			return redirect()->route('profile')->with('success', 'Atualizado com sucesso.');

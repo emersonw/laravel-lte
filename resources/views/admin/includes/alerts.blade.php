@@ -1,28 +1,23 @@
 @if (session('success'))
-<div class="alert alert-success">
-	{{ session('success')  }}
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-</div>
+<script type="text/javascript">
+	toastr.success("{{ session('success')  }}", '', {positionClass: "toast-top-center"});
+</script>
 @endif
 
 @if (session('error'))
-<div class="alert alert-danger">
-	{{ session('error')  }}
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-</div>
+<script type="text/javascript">
+	toastr.error("{{ session('error')  }}", '', {positionClass: "toast-top-center"});
+</script>
 @endif
 
 @if ($errors->any())
 @foreach ($errors->all() as $error)
-<div class="alert alert-warning">
-	{{ $error }}
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-</div>
+<script type="text/javascript">
+	toastr.warning("{{ $error }}", '', {positionClass: "toast-top-center"});
+</script>
 @endforeach
 @endif
+
+<style type="text/css">.toast, .toast-top-center {
+	margin-top: 35px;
+}</style>

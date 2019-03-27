@@ -4,8 +4,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
 	//Equivale ao acessar: /admin
 	Route::get('/', 'AdminController@index')->name('admin.home');
 
-	Route::get('profile', 'UserController@index')->name('profile');
-	Route::post('profile-update', 'UserController@update')->name('profile.update');
+	Route::get('perfil', 'UserController@index')->name('profile');
+	Route::post('update-profile', 'UserController@updateProfile')->name('profile.updateProfile');
+	Route::post('update-password', 'UserController@updatePassword')->name('profile.updatePassword');
 
 	//Route::resource('admin/categories', 'CategoryController');
 });

@@ -1,30 +1,25 @@
 @extends('adminlte::page')
 
 @section('title', 'Profile')
-
 @section('content_header')
-<h1>Perfil do usuário</h1>
+<h1>Configurações do usuário</h1>
 @stop
 
 @section('content')
 
-@include('admin.includes.alerts')
-
-
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4 col-lg-3">
 
         <!-- Profile Image -->
         <div class="box box-primary">
             <div class="box-body box-profile">
-                 @if (Auth::user()->image != null)
-                        <img class="profile-user-img img-responsive img-circle" src="{{ url('storage/users/'. Auth::user()->image) }}" alt="{{ Auth::user()->image }}" width="160px">
-                    @endif
+                @if (Auth::user()->image != null)
+                <img class="profile-user-img img-responsive img-circle" src="{{ url('/images/users/'. Auth::user()->image) }}" alt="{{ Auth::user()->image }}" width="160px">
+                @endif
 
                 <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
-
+                <p class="text-muted text-center">{{ Auth::user()->email }}</p>
             </div>
             <!-- /.box-body -->
         </div>
@@ -71,46 +66,94 @@
         <!-- /.box -->
     </div>
     <!-- /.col -->
-    <div class="col-md-9">
+
+    <div class="col-md-8 col-lg-9">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Quick Example</h3>
+                <h3 class="box-title">Informações pessoais</h3>
             </div>
 
-            <!-- /.box-header -->
-            <!-- form start -->
             <div class="box-body">
-                {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.update', 'class' => 'form-validate', 'enctype' => 'multipart/form-data']) !!}
+                {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.updateProfile', 'class' => 'form-validate', 'enctype' => 'multipart/form-data']) !!}
 
-                <div class="form-group">
-                    {!! Form::label('name', 'Nome') !!} <span class="text-danger">*</span>
-                    {!! Form::input('text', 'name', null, ['class' => 'form-control', 'required']) !!}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            {!! Form::label('name', 'Nome') !!} <span class="text-danger">*</span>
+                            {!! Form::input('text', 'name', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('email', 'E-mail') !!} <span class="text-danger">*</span>
+                            {!! Form::input('email', 'email', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('email', 'E-mail') !!} <span class="text-danger">*</span>
-                    {!! Form::input('email', 'email', null, ['class' => 'form-control', 'required']) !!}
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                            {!! Form::label('image', 'Imagem') !!} 
+                            <div id="slim" class="slim form-group" data-ratio="1:1" min-size="160,160"> 
+                                @if (Auth::user()->image != null)
+                                <img src="{{ url('/images/users/'. Auth::user()->image) }}">
+                                @endif
+                                {!! Form::input('file', 'image', null, []) !!}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('password', 'Senha') !!}
-                    {!! Form::input('password', 'password', null, ['class' => 'form-control']) !!}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            {!! Form::submit('Salvar', ['class' => 'btn btn-success']) !!}
+                        </div>    
+                    </div>
                 </div>
-                <div class="form-group">
-
-
-                    {!! Form::label('image', 'Imagem') !!}
-                    {!! Form::input('file', 'image', null, ['class' => 'form-control']) !!}
-                </div>       
-                <div class="form-group ">
-                    {!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
-                </div>                         
                 {!! csrf_field() !!}
                 {!! Form::close() !!}
             </div>
-            <!-- /.box-body -->
-
         </div>
-        <!-- /.nav-tabs-custom -->
+
+        <div class="box box-primary">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Alteração de senha</h3>
+            </div>
+
+            <div class="box-body">
+                {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.updatePassword', 'class' => 'form-validate']) !!}
+
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            {!! Form::label('password', 'Senha') !!} <span class="text-danger">*</span>
+                            {!! Form::input('password', 'password', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('password', 'Nova senha') !!} <span class="text-danger">*</span>
+                            {!! Form::input('password', 'new_password', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('password', 'Confirme a senha') !!} <span class="text-danger">*</span>
+                            {!! Form::input('password', 'confirm_password', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            {!! Form::submit('Salvar', ['class' => 'btn btn-success']) !!}
+                        </div>    
+                    </div>
+                </div>
+                {!! csrf_field() !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
     </div>
     <!-- /.col -->
 </div>
