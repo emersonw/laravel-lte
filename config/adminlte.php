@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'title' => 'Noxan - CMS',
+    'title' => 'Noxan',
 
-    'title_prefix' => 'Noxan - ',
+    'title_prefix' => '',
 
     'title_postfix' => '',
 

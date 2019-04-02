@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
+    <title>
+        @yield('title_prefix', config('adminlte.title_prefix', ''))
         @yield('title', config('adminlte.title', 'AdminLTE 2'))
-    @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+        @yield('title_postfix', config('adminlte.title_postfix', ''))
+    </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -16,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/slim.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/style-admin.css') }}">
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
@@ -55,8 +59,6 @@
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     {!! Toastr::message() !!}
 
-    @include('admin.includes.alerts')
-
     @if(config('adminlte.plugins.select2'))
     <!-- Select2 -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
@@ -80,7 +82,7 @@
         {
             "data-label": "Clique aqui ou arraste uma imagem", 
             "data-button-edit-title":  "Editar",
-            "data-button-remove-title": "Remover", 
+            "data-button-remove-title": "Descartar", 
             "data-button-cancel-title": "Cancelar", 
             "data-button-confirm-title": "Confirmar",
             "data-button-rotate-title": "Rotacionar",

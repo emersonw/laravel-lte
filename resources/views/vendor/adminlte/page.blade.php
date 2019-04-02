@@ -93,7 +93,7 @@ href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 
 
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="{{ url('/images/users/'. Auth::user()->image) }}" alt="{{ Auth::user()->image }}" class="img-circle" >
                 </div>
                 <div class="pull-left info">
                     <p><a href="{{ route('profile') }}">{{ Auth::user()->name }}</a></p>

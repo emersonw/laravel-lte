@@ -4,19 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 use App\Http\Requests\UpdateProfileFormRequest;
+use App\Plugins\Slim;
 use App\Http\Requests\UpdatePasswordFormRequest;
 use Illuminate\Support\Facades\Hash;
-use Auth;
-use App\Plugins\Slim;
-use File;
 use Brian2694\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
 	public function index()
 	{
-
 		return view('admin.profile.index');
 	}
 
@@ -24,6 +22,44 @@ class UserController extends Controller
 	{
 		$user = Auth::user();
 		$request->offsetUnset('password');
+		$request->offsetUnset('image');
+
+		$update = Auth::user()->update($request->all());
+
+		if ($update) {
+			Toastr::success("Atualizado com sucesso.");
+			return redirect()->route('profile');
+		} else {
+			Toastr::error("Erro ao atualizar");
+			return redirect()->back();
+		}
+	}
+
+	public function updatePassword(UpdatePasswordFormRequest $request)
+	{
+		$user = Auth::user();
+
+		if(Hash::check($request->password, $user->password)) {           
+			$request->merge(['password' => Hash::make($request->new_password)]);
+		} else {           
+			return redirect()->back()->with('error', 'Senha incorreta.');   
+		}
+
+		$update = Auth::user()->update($request->all());
+
+		if ($update) {
+			Toastr::success("Atualizado com sucesso.");
+			return redirect()->route('profile');
+		} else {
+			Toastr::error("Erro ao atualizar");
+			return redirect()->back();
+		}
+	}
+
+	public function updatePhoto(Request $request)
+	{
+		$user = Auth::user();
+
 		
 		if ($request->image) {
 			$image = head(Slim::getImages('image'));
@@ -48,28 +84,12 @@ class UserController extends Controller
 		$update = Auth::user()->update($request->all());
 
 		if ($update) {
-			return redirect()->route('profile')->with('success', 'Atualizado com sucesso.');
+			Toastr::success("Atualizado com sucesso.");
+			return redirect()->route('profile');
 		} else {
-			return redirect()->back()->with('error', 'Erro ao atualizar.');
+			Toastr::error("Erro ao atualizar");
+			return redirect()->back();
 		}
 	}
 
-	public function updatePassword(UpdatePasswordFormRequest $request)
-	{
-		$user = Auth::user();
-
-		if(Hash::check($request->password, $user->password)) {           
-			$request->merge(['password' => Hash::make($request->new_password)]);
-		} else {           
-			return redirect()->back()->with('error', 'Senha incorreta.');   
-		}
-
-		$update = Auth::user()->update($request->all());
-
-		if ($update) {
-			return redirect()->route('profile')->with('success', 'Atualizado com sucesso.');
-		} else {
-			return redirect()->back()->with('error', 'Erro ao atualizar.');
-		}
-	}
 }

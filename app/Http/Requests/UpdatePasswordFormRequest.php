@@ -3,6 +3,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Brian2694\Toastr\Facades\Toastr;
 
 class UpdatePasswordFormRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class UpdatePasswordFormRequest extends FormRequest
      */
     public function rules()
     {
-        
+
         return [
             'password' => 'required',
             'new_password' => 'required|same:new_password',
@@ -32,10 +33,22 @@ class UpdatePasswordFormRequest extends FormRequest
         ];
         
     }
-public function messages()
+    public function messages()
     {
         return [
             'same' => 'As senhas não coincidem.',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $messages = $validator->messages();
+
+        foreach ($messages->all() as $message)
+        {
+            Toastr::warning($message);
+        }
+
+        return $validator->errors()->all();
     }
 }

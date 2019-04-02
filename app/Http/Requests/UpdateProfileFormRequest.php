@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
+use Brian2694\Toastr\Facades\Toastr;
 use Auth;
 
 class UpdateProfileFormRequest extends FormRequest
@@ -29,5 +31,16 @@ class UpdateProfileFormRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)]
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        $messages = $validator->messages();
+
+        foreach ($messages->all() as $message)
+        {
+            Toastr::warning($message);
+        }
+
+        return $validator->errors()->all();
     }
 }

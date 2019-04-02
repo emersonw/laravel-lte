@@ -1,8 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Profile')
+@section('title', 'Perfil')
 @section('content_header')
-<h1>Configurações do usuário</h1>
+<h1>Perfil</h1>
 @stop
 
 @section('content')
@@ -13,9 +13,41 @@
         <!-- Profile Image -->
         <div class="box box-primary">
             <div class="box-body box-profile">
-                @if (Auth::user()->image != null)
-                <img class="profile-user-img img-responsive img-circle" src="{{ url('/images/users/'. Auth::user()->image) }}" alt="{{ Auth::user()->image }}" width="160px">
-                @endif
+                <div class="profile-photo">
+
+                    <img class="img-responsive" src="{{ url('/images/users/'. Auth::user()->image) }}">
+
+                    <div class="caption">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-photo"><i class="fa fa-pencil"></i> </button>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modal-photo" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.updatePhoto', 'class' => 'form-validate', 'enctype' => 'multipart/form-data']) !!}
+   
+                            
+
+                                <div id="slim" class="slim" data-ratio="1:1" min-size="160,160"> 
+                                    @if (Auth::user()->image != null)
+                                    <img src="{{ url('/images/users/'. Auth::user()->image) }}">
+                                    @endif
+                                    {!! Form::input('file', 'image', null, []) !!}
+                                </div>
+
+                            
+                            <div class="modal-footer float-left">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                {!! Form::submit('Salvar', ['class' => 'btn btn-success']) !!}
+
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+
 
                 <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
 
@@ -90,19 +122,7 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            {!! Form::label('image', 'Imagem') !!} 
-                            <div id="slim" class="slim form-group" data-ratio="1:1" min-size="160,160"> 
-                                @if (Auth::user()->image != null)
-                                <img src="{{ url('/images/users/'. Auth::user()->image) }}">
-                                @endif
-                                {!! Form::input('file', 'image', null, []) !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-lg-12">

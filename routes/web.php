@@ -7,7 +7,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
 	Route::get('perfil', 'UserController@index')->name('profile');
 	Route::post('update-profile', 'UserController@updateProfile')->name('profile.updateProfile');
 	Route::post('update-password', 'UserController@updatePassword')->name('profile.updatePassword');
-
+	Route::post('update-photo', 'UserController@updatePhoto')->name('profile.updatePhoto');
 	//Route::resource('admin/categories', 'CategoryController');
 });
 
