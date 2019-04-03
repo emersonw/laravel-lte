@@ -1,8 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Perfil')
+@section('title', 'Meu Perfil')
 @section('content_header')
-<h1>Perfil</h1>
+<h1>Meu Perfil</h1>
 @stop
 
 @section('content')
@@ -20,7 +20,7 @@
                     <img class="img-responsive" src="{{ url('/images/users/'. Auth::user()->image) }}">
                     @endif
                     <div class="caption">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-photo"><i class="fa fa-pencil"></i> </button>
+                        <button type="button" class="btn btn-success btn-photo-profile"  data-toggle="modal" data-target="#modal-photo"><i class="fa fa-pencil"></i> Alterar imagem</button>
                     </div>
                 </div>
 
@@ -56,20 +56,20 @@
         <!-- About Me Box -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">About Me</h3>
+                <h3 class="box-title">Informações Gerais</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                <strong><i class="fa fa-briefcase margin-r-5"></i> Empresa</strong>
                 <p class="text-muted">
-                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                    Biofarma Manipulação
                 </p>
 
                 <hr>
 
-                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                <strong><i class="fa fa-map-marker margin-r-5"></i> Endereço</strong>
 
-                <p class="text-muted">Malibu, California</p>
+                <p class="text-muted">Pouso Alegre, Minas Gerais</p>
 
                 <hr>
 

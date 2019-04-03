@@ -123,9 +123,9 @@ return [
         ],
         'CONFIGURAÇÕES',
         [
-            'text' => 'Perfil',
+            'text' => 'Meu Perfil',
             'url'  => 'admin/perfil',
-            'icon' => 'gear',
+            'icon' => 'user',
         ],
         
     ],
