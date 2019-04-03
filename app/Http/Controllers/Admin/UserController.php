@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Services\PayUService\Exception;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Http\Requests\UpdateProfileFormRequest;
@@ -10,6 +11,7 @@ use App\Plugins\Slim;
 use App\Http\Requests\UpdatePasswordFormRequest;
 use Illuminate\Support\Facades\Hash;
 use Brian2694\Toastr\Facades\Toastr;
+use File;
 
 class UserController extends Controller
 {
@@ -24,15 +26,15 @@ class UserController extends Controller
 		$request->offsetUnset('password');
 		$request->offsetUnset('image');
 
-		$update = Auth::user()->update($request->all());
-
-		if ($update) {
+		try {
+			$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
 			return redirect()->route('profile');
-		} else {
-			Toastr::error("Erro ao atualizar");
+		}
+		catch (\Exception $e) {
 			return redirect()->back();
 		}
+
 	}
 
 	public function updatePassword(UpdatePasswordFormRequest $request)
@@ -41,17 +43,19 @@ class UserController extends Controller
 
 		if(Hash::check($request->password, $user->password)) {           
 			$request->merge(['password' => Hash::make($request->new_password)]);
-		} else {           
-			return redirect()->back()->with('error', 'Senha incorreta.');   
+		} else {
+			Toastr::error("Sehna incorreta");     
+			return redirect()->back();   
 		}
 
 		$update = Auth::user()->update($request->all());
 
-		if ($update) {
+		try {
+			$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
 			return redirect()->route('profile');
-		} else {
-			Toastr::error("Erro ao atualizar");
+		}
+		catch (\Exception $e) {
 			return redirect()->back();
 		}
 	}
@@ -59,7 +63,6 @@ class UserController extends Controller
 	public function updatePhoto(Request $request)
 	{
 		$user = Auth::user();
-
 		
 		if ($request->image) {
 			$image = head(Slim::getImages('image'));
@@ -75,19 +78,19 @@ class UserController extends Controller
             // Get the absolute web path to the image
 				$image = $file['name'];
 				$request->merge(['image' => $image]);
+				File::delete('images/users/'.$user->image);
 			}
 
 		} else {
 			$request->offsetUnset('image');
 		}
 
-		$update = Auth::user()->update($request->all());
-
-		if ($update) {
+		try {
+			$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
 			return redirect()->route('profile');
-		} else {
-			Toastr::error("Erro ao atualizar");
+		}
+		catch (\Exception $e) {
 			return redirect()->back();
 		}
 	}

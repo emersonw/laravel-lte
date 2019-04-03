@@ -14,9 +14,11 @@
         <div class="box box-primary">
             <div class="box-body box-profile">
                 <div class="profile-photo">
-
+                    @if (Auth::user()->image == null)
+                    <img class="img-responsive" src="{{ url('/images/users/default.png') }}">
+                    @else
                     <img class="img-responsive" src="{{ url('/images/users/'. Auth::user()->image) }}">
-
+                    @endif
                     <div class="caption">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-photo"><i class="fa fa-pencil"></i> </button>
                     </div>
@@ -27,30 +29,24 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.updatePhoto', 'class' => 'form-validate', 'enctype' => 'multipart/form-data']) !!}
-   
-                            
-
-                                <div id="slim" class="slim" data-ratio="1:1" min-size="160,160"> 
-                                    @if (Auth::user()->image != null)
-                                    <img src="{{ url('/images/users/'. Auth::user()->image) }}">
-                                    @endif
-                                    {!! Form::input('file', 'image', null, []) !!}
-                                </div>
-
-                            
+                            <div id="slim" class="slim" data-ratio="1:1" min-size="160,160"> 
+                                @if (Auth::user()->image == null)
+                                <img src="{{ url('/images/users/default.png') }}">
+                                @else
+                                <img src="{{ url('/images/users/'. Auth::user()->image) }}">
+                                @endif
+                                {!! Form::input('file', 'image', null, []) !!}
+                            </div>
                             <div class="modal-footer float-left">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                                 {!! Form::submit('Salvar', ['class' => 'btn btn-success']) !!}
-
                             </div>
                             {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
 
-
                 <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
-
                 <p class="text-muted text-center">{{ Auth::user()->email }}</p>
             </div>
             <!-- /.box-body -->
