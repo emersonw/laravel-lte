@@ -1,5 +1,7 @@
 <?php
-Auth::routes();
+
+Auth::routes(['verify' => true]);
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function (){
 	//Equivale ao acessar: /Admin

@@ -33,6 +33,16 @@ class UpdatePasswordFormRequest extends FormRequest
         ];
         
     }
+    
+    public function attributes()
+    {
+        return [
+            'password' => 'senha',
+            'new_password' => 'nova senha',
+            'confirm_password' => 'confirme a senha', 
+        ];
+    }
+
     public function messages()
     {
         return [

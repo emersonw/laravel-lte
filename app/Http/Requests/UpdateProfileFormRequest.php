@@ -32,6 +32,14 @@ class UpdateProfileFormRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)]
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'nome',
+        ];
+    }
+
     protected function failedValidation(Validator $validator)
     {
         $messages = $validator->messages();
