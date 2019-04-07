@@ -2,8 +2,7 @@
 
 Auth::routes(['verify' => true]);
 
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'namespace' => 'Admin'], function (){
 	//Equivale ao acessar: /Admin
 	Route::get('/', 'AdminController@index')->name('admin.home');
 
