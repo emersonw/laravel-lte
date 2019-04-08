@@ -47,7 +47,7 @@
                 </div>
 
                 <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
-                <p class="text-muted text-center">{{ Auth::user()->email }}</p>
+                <p class="text-muted text-center">{{ Auth::user()->username }} <br>{{ Auth::user()->email }}</p>
             </div>
             <!-- /.box-body -->
         </div>
@@ -109,6 +109,14 @@
                         <div class="form-group">
                             {!! Form::label('name', 'Nome') !!} <span class="text-danger">*</span>
                             {!! Form::input('text', 'name', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('username', 'Usuário') !!} <span class="text-danger">*</span>
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                {!! Form::input('text', 'username', null, ['class' => 'form-control', 'required']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">

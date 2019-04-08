@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use App\Services\PayUService\Exception;
 use App\Http\Controllers\Controller;
 use Auth;
+use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\UpdateProfileFormRequest;
-use App\Plugins\Slim;
 use App\Http\Requests\UpdatePasswordFormRequest;
 use Illuminate\Support\Facades\Hash;
-use Brian2694\Toastr\Facades\Toastr;
+use App\Plugins\Slim;
 use File;
 
 class UserController extends Controller
@@ -69,13 +69,9 @@ class UserController extends Controller
 
 			if ( isset($image['output']['data']) ) {
 				$name = $user->id.'.png';
-            // Base64 of the image
 				$data = $image['output']['data'];
-            // Server path
 				$path = base_path() . '/public/images/users';
-            // Save the file to the server
 				$file = Slim::saveFile($data, $name, $path);
-            // Get the absolute web path to the image
 				$image = $file['name'];
 				$request->merge(['image' => $image]);
 				File::delete('images/users/'.$user->image);
