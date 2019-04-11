@@ -32,7 +32,7 @@ class UserController extends Controller
 		try {
 			$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
-			return redirect()->route('profile');
+			return redirect()->back();
 		}
 		catch (\Exception $e) {
 			Toastr::error("Não foi possível atualizar.");
@@ -52,9 +52,9 @@ class UserController extends Controller
 		}
 
 		try {
-			//$update = Auth::user()->update($request->all());
+			$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
-			return redirect()->route('profile');
+			return redirect()->back();
 		}
 		catch (\Exception $e) {
 			Toastr::error("Não foi possível atualizar.");
