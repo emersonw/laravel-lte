@@ -124,7 +124,7 @@ return [
 
         'CONFIGURAÇÕES',
         [
-            'text' => 'Meu Perfil',
+            'text' => 'Meu perfil',
             'url'  => 'admin/perfil',
             'icon' => 'user',
         ],

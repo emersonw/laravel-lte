@@ -14,15 +14,15 @@
 
                 <div class="form-group">
                     {!! Form::label('old_password', 'Senha') !!} <span class="text-danger">*</span>
-                    {!! Form::input('password', 'old_password', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::input('password', 'old_password', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter pelo menos 6 caracteres', 'minlength' => '6', 'maxlenght' => '60' ]) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('password', 'Nova senha') !!} <span class="text-danger">*</span>
-                    {!! Form::input('password', 'password', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::input('password', 'password', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter pelo menos 6 caracteres', 'minlength' => '6', 'maxlenght' => '60']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('password_confirmation', 'Confirme a senha') !!} <span class="text-danger">*</span>
-                    {!! Form::input('password', 'password_confirmation', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::input('password', 'password_confirmation', null, ['class' => 'form-control', 'required',  'minlength' => '6', 'maxlenght' => '60']) !!}
                 </div>
             </div>
         </div>
