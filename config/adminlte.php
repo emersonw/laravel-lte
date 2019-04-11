@@ -121,12 +121,19 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+
         'CONFIGURAÇÕES',
         [
             'text' => 'Meu Perfil',
             'url'  => 'admin/perfil',
             'icon' => 'user',
         ],
+        [
+            'text' => 'Alterar senha',
+            'url'  => 'admin/alterar-senha',
+            'icon' => 'lock',
+        ],
+        
         
     ],
 

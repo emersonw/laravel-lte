@@ -6,7 +6,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'namesp
 	//Equivale ao acessar: /Admin
 	Route::get('/', 'AdminController@index')->name('admin.home');
 
-	Route::get('perfil', 'UserController@index')->name('profile');
+	Route::get('perfil', 'UserController@perfil')->name('profile');
+	Route::get('alterar-senha', 'UserController@senha')->name('password');
+
 	Route::post('update-profile', 'UserController@updateProfile')->name('profile.updateProfile');
 	Route::post('update-password', 'UserController@updatePassword')->name('profile.updatePassword');
 	Route::post('update-photo', 'UserController@updatePhoto')->name('profile.updatePhoto');

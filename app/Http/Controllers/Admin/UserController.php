@@ -15,16 +15,19 @@ use File;
 
 class UserController extends Controller
 {
-	public function index()
+	public function perfil()
 	{
-		return view('admin.profile.index');
+		return view('admin.profile.perfil');
+	}
+
+	public function senha()
+	{
+		return view('admin.profile.alterar-senha');
 	}
 
 	public function updateProfile(UpdateProfileFormRequest $request)
 	{
 		$user = Auth::user();
-		$request->offsetUnset('password');
-		$request->offsetUnset('image');
 
 		try {
 			$update = Auth::user()->update($request->all());
@@ -32,30 +35,29 @@ class UserController extends Controller
 			return redirect()->route('profile');
 		}
 		catch (\Exception $e) {
+			Toastr::error("Não foi possível atualizar.");
 			return redirect()->back();
 		}
-
 	}
 
 	public function updatePassword(UpdatePasswordFormRequest $request)
 	{
 		$user = Auth::user();
 
-		if(Hash::check($request->password, $user->password)) {           
-			$request->merge(['password' => Hash::make($request->new_password)]);
+		if(Hash::check($request->old_password, $user->password)) {           
+			$request->merge(['password' => Hash::make($request->password)]);
 		} else {
-			Toastr::error("Sehna incorreta");     
+			Toastr::error("Senha incorreta");     
 			return redirect()->back();   
 		}
 
-		$update = Auth::user()->update($request->all());
-
 		try {
-			$update = Auth::user()->update($request->all());
+			//$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
 			return redirect()->route('profile');
 		}
 		catch (\Exception $e) {
+			Toastr::error("Não foi possível atualizar.");
 			return redirect()->back();
 		}
 	}
@@ -84,9 +86,10 @@ class UserController extends Controller
 		try {
 			$update = Auth::user()->update($request->all());
 			Toastr::success("Atualizado com sucesso.");
-			return redirect()->route('profile');
+			return redirect()->back();
 		}
 		catch (\Exception $e) {
+			Toastr::error("Não foi possível atualizar.");
 			return redirect()->back();
 		}
 	}

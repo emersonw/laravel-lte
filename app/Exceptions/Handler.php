@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Brian2694\Toastr\Facades\Toastr;
 
 class Handler extends ExceptionHandler
 {
@@ -46,11 +47,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            Toastr::info("Faça o login novamente.");
+            return redirect('/login');
 
-        return redirect('/login')->with('error', 'Faça o login novamente.');
-
-   }
+        }
         return parent::render($request, $exception);
     }
 }

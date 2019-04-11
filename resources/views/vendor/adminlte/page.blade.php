@@ -100,7 +100,7 @@ href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 
                         @endif
                     </div>
                     <div class="pull-left info">
-                        <p><a href="{{ route('profile') }}">{{ Auth::user()->name }}</a></p>
+                        <p><a href="{{ route('profile') }}">{{ "@" }}{{ Auth::user()->username }}</a></p>
                         <a href="{{ route('profile') }}"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>

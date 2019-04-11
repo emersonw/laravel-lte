@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 use Brian2694\Toastr\Facades\Toastr;
+
+use Illuminate\Validation\Rule;
 use Auth;
 
 class UpdateProfileFormRequest extends FormRequest
@@ -27,11 +28,13 @@ class UpdateProfileFormRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],            
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)]
+            'name' => ['required', 'string', 'min:10', 'max:50'],
+            'username' => ['required', 'string', 'min:4', 'max:25', Rule::unique('users')->ignore(Auth::user()->id)],            
+            'email' => ['required', 'string', 'email', 'max:60', Rule::unique('users')->ignore(Auth::user()->id)]
         ];
+        
     }
 
     public function attributes()
@@ -42,6 +45,7 @@ class UpdateProfileFormRequest extends FormRequest
         ];
     }
 
+
     protected function failedValidation(Validator $validator)
     {
         $messages = $validator->messages();
@@ -50,7 +54,9 @@ class UpdateProfileFormRequest extends FormRequest
         {
             Toastr::warning($message);
         }
+        throw (new ValidationException($validator))
+        ->errorBag($this->errorBag)
+        ->redirectTo($this->getRedirectUrl());
 
-        return $validator->errors()->all();
     }
 }

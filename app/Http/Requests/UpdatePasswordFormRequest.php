@@ -3,6 +3,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 use Brian2694\Toastr\Facades\Toastr;
 
 class UpdatePasswordFormRequest extends FormRequest
@@ -27,9 +28,8 @@ class UpdatePasswordFormRequest extends FormRequest
     {
 
         return [
-            'password' => 'required',
-            'new_password' => 'required|same:new_password',
-            'confirm_password' => 'required|same:new_password', 
+            'old_password' => 'required',
+            'password' => ['required', 'string', 'min:6', 'max:60', 'confirmed']
         ];
         
     }
@@ -37,16 +37,15 @@ class UpdatePasswordFormRequest extends FormRequest
     public function attributes()
     {
         return [
-            'password' => 'senha',
-            'new_password' => 'nova senha',
-            'confirm_password' => 'confirme a senha', 
+            'old_password' => 'senha',
+            'password' => 'nova senha',
         ];
     }
 
     public function messages()
     {
         return [
-            'same' => 'As senhas não coincidem.',
+            'confirmed' => 'As senhas não coincidem.'
         ];
     }
 
@@ -58,7 +57,9 @@ class UpdatePasswordFormRequest extends FormRequest
         {
             Toastr::warning($message);
         }
+        throw (new ValidationException($validator))
+        ->errorBag($this->errorBag)
+        ->redirectTo($this->getRedirectUrl());
 
-        return $validator->errors()->all();
     }
 }
