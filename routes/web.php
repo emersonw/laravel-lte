@@ -13,7 +13,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'namesp
 	Route::post('update-password', 'UserController@updatePassword')->name('profile.updatePassword');
 	Route::post('update-photo', 'UserController@updatePhoto')->name('profile.updatePhoto');
 	//Route::resource('admin/categories', 'CategoryController');
+	
+	Route::get('teste', 'AdminController@teste')->name('teste');
+
+	Route::get('teste1/{id}/{email}', 'AdminController@teste1')->name('teste1')->middleware('signed');
 });
+
 
 
 Route::get('/', 'Site\SiteController@index')->name('home');
