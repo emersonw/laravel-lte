@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'skin' => 'blue',
+    'skin' => 'black',
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +58,10 @@ return [
     |
     */
 
+
     'layout' => 'fixed',
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -125,13 +128,18 @@ return [
         'CONFIGURAÇÕES',
         [
             'text' => 'Meu perfil',
-            'url'  => 'admin/perfil',
+            'url'  => 'admin/alterar-perfil',
             'icon' => 'user',
         ],
         [
             'text' => 'Alterar senha',
             'url'  => 'admin/alterar-senha',
             'icon' => 'lock',
+        ],
+        [
+            'text' => 'Alterar e-mail',
+            'url'  => 'admin/alterar-email',
+            'icon' => 'envelope',
         ],
         
         

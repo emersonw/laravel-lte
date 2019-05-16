@@ -9,7 +9,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Validation\Rule;
 use Auth;
 
-class UpdateProfileFormRequest extends FormRequest
+class UpdateEmailFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,8 +29,7 @@ class UpdateProfileFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'min:10', 'max:50'],
-            'username' => ['required', 'string', 'min:4', 'max:25', Rule::unique('users')->ignore(Auth::user()->id)],            
+            'email' => ['required', 'string', 'email', 'max:60', Rule::unique('users')->ignore(Auth::user()->id)]
         ];
         
     }
@@ -38,16 +37,10 @@ class UpdateProfileFormRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'nome',
-            'username' => 'usuário',
+            'email' => 'e-mail',
         ];
     }
-    public function messages()
-    {
-        return [
-            'unique' => 'Usuário já cadastrado.'
-        ];
-    }
+
 
     protected function failedValidation(Validator $validator)
     {

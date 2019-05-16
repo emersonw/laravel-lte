@@ -1,12 +1,132 @@
+/* ----------- Geral ----------- */
+
+.header-profile {
+    padding: 12rem 2rem 12rem 2rem !important;
+    margin-top: -80px !important;
+    background-image: url(/images/geral/background-user.jpg);
+    background-size: 100% 40rem;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.box {
+    border-top: none !important;
+    background-color: #f6f9fb !important;
+    border-radius: 10px  !important;
+}
+
+.box-header {
+    padding: 2rem !important;
+    background-color: white !important;
+    border-radius: 10px 10px 0px 0px !important;
+}
+
+.box-title {
+    color: #32325d !important;
+        font-family: inherit !important;
+    line-height: 1.5 !important;
+}
+
+#toast-container {
+    margin-top: 5px !important;
+}
+
+.box-body {
+    padding: 2rem 5rem 2rem 5rem !important;
+}
+
+
+.grid-profile {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 0 auto;
+    grid-gap: 30px;
+}
+
+
+
+@media (max-width: 1200px) {
+    .grid-profile {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .grid-profile > div:nth-child(2) {
+        order: -1;
+    }
+}
+
+
+label {
+    font-weight: 600 !important;
+    color: #525f7f !important;
+    font-size: 1.6rem !important;
+}
+.form-control {
+    padding: 2rem !important;
+    border-radius: 0.5rem  !important;
+    box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02) !important;
+    transition: box-shadow .15s ease !important;
+}
+
+.form-control:focus {
+    padding: 2rem !important;
+    border-color: rgba(50, 151, 211, .25) !important;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08) !important;
+    transition: box-shadow .15s ease !important;
+}
+
+.title-profile {
+    font-weight: 600 !important;
+    color: white !important;
+    font-family: arial, sans-serif !important;
+
+}
+
+.sub-title-profile {
+    margin-bottom: 8rem !important;
+    color: white !important;
+}
+
+.input-group-addon {
+    box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02) !important;
+    border-radius: 5px 0 0 5px !important;
+}
+
+.input-group > .form-control {
+    border-radius: 0 5px 5px 0 !important;
+
+}
+
+.btn {
+    font: 400 15px Arial !important;
+    padding: 10px 15px 10px 15px !important;
+
+}
+
+.btn-success, .btn-success:hover, .btn-success:focus, .btn-success:active:focus, .btn-success:active:hover {
+    color: #fff !important;
+    border-color: #2dce89 !important;
+    background-color: #2dce89 !important;
+    box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02) !important;
+    transition: box-shadow .15s ease !important;
+}
+
+.btn-success:hover {
+    transition: box-shadow .15s ease !important;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08) !important;
+
+}
+/* ----------- Fim Geral ----------- */
+
 .profile-photo{
     padding: 0px;
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    width: 45%;
-    max-width: 200px;
-    border: 7px solid #d2d6de;
+    max-width: 180px;
     border-radius: 50%;
+    margin-top: -6.5rem;
+    margin-bottom: 2rem;
 }
 
 .profile-photo .caption{
@@ -17,16 +137,18 @@
 }
 
 .btn-photo-profile {
-	width: 100% !important; 
+    width: 100% !important; 
     padding-bottom: 20px;
-	border-radius: 0px !important;
+    border-radius: 0px !important;
     background-color: rgba(255,255,255,0.15) !important;
     border-color: rgba(255,255,255,0) !important;
-    transition: 0.3s ease;
+    transition: 0.3s ease !important;
 }
 .profile-photo:hover .btn-photo-profile{
     display: show;
     background-color: rgba(0,0,0,0.2) !important;
     border-color: rgba(0,0,0,0.2) !important;
-    transition: 0.3s ease;
+    transition: 0.3s ease !important;
 }
+
+

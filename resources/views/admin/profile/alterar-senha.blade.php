@@ -1,8 +1,8 @@
 @extends('admin/profile/index')
 
 @section('form')
-<div class="box box-primary">
-    <div class="box-header with-border">
+<div class="box">
+    <div class="box-header">
         <h3 class="box-title">Alteração de senha</h3>
     </div>
 
@@ -10,19 +10,19 @@
         {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.updatePassword', 'class' => 'form-validate']) !!}
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
 
                 <div class="form-group">
                     {!! Form::label('old_password', 'Senha') !!} <span class="text-danger">*</span>
-                    {!! Form::input('password', 'old_password', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter pelo menos 6 caracteres', 'minlength' => '6', 'maxlenght' => '60' ]) !!}
+                    {!! Form::input('password', 'old_password', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter pelo menos 6 caracteres', 'minlength' => '6', 'maxlength' => '30' ]) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('password', 'Nova senha') !!} <span class="text-danger">*</span>
-                    {!! Form::input('password', 'password', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter pelo menos 6 caracteres', 'minlength' => '6', 'maxlenght' => '60']) !!}
+                    {!! Form::input('password', 'password', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter pelo menos 6 caracteres', 'minlength' => '6', 'maxlength' => '30']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('password_confirmation', 'Confirme a senha') !!} <span class="text-danger">*</span>
-                    {!! Form::input('password', 'password_confirmation', null, ['class' => 'form-control', 'required',  'minlength' => '6', 'maxlenght' => '60']) !!}
+                    {!! Form::input('password', 'password_confirmation', null, ['class' => 'form-control', 'required',  'minlength' => '6', 'maxlength' => '30']) !!}
                 </div>
             </div>
         </div>

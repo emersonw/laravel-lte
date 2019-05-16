@@ -10,23 +10,18 @@
         {!! Form::model(Auth::user(), ['method' => 'POST', 'route' => 'profile.updateProfile', 'class' => 'form-validate']) !!}
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="form-group">
                     {!! Form::label('name', 'Nome') !!} <span class="text-danger">*</span>
-                    {!! Form::input('text', 'name', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter entre 10 e 60 caracteres', 'minlength' => '10', 'maxlenght' => '60']) !!}
+                    {!! Form::input('text', 'name', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter entre 10 e 60 caracteres', 'minlength' => '10', 'maxlength' => '60']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('username', 'Usuário') !!} <span class="text-danger">*</span>
                     <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        {!! Form::input('text', 'username', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter entre 4 e 25 caracteres', 'minlength' => '4', 'maxlenght' => '25']) !!}
+                        {!! Form::input('text', 'username', null, ['class' => 'form-control', 'required', 'placeholder' => 'Deve ter entre 4 e 25 caracteres', 'minlength' => '4', 'maxlength' => '25']) !!}
                     </div>
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('email', 'E-mail') !!} <span class="text-danger">*</span>
-                    {!! Form::input('email', 'email', null, ['class' => 'form-control', 'required', 'maxlenght' => '60']) !!}
                 </div>
             </div>
         </div>
